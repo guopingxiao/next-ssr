@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Button } from 'antd';
 import Link from 'next/link';
 import IfComp from 'if-comp';
-import Counter from '../../containers/home/counter';
+import Counter from './counter';
 
 const Home = () => (
   <Fragment>
