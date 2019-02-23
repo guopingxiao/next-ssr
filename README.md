@@ -1,2 +1,1 @@
-# next-ssr
-next.js ssr demo
+A react ssr scafflod with ant-design based on Next.js.
