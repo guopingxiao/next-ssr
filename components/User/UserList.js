@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { RoleType } from '../../constants/ConstTypes';
 
 class UserList extends Component {
-  
   constructor(props) {
+
     super(props);
     this.state = {
-      userList: []
+      dataSource: []
     };
 
     this.columns = [{
@@ -33,24 +33,30 @@ class UserList extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.userList && (nextProps.userList !== prevState.userList)) {
+    if (nextProps.list && nextProps.list !== prevState.dataSource) {
       return {
-        userList: nextProps.userList
+        dataSource: nextProps.list
       };
     }
     return null; 
   }
 
+  componentDidMount() {
+    if(this.props.isServer) {
+      this.props.fetchUserListData();
+    }
+  }
+
   render() {
-    const { userList } = this.state;
-    userList.map(item => {
+    const { dataSource } = this.state;
+    dataSource.map(item => {
       item.key = item.id;
       item.role = 10;
     });
     return (
       <Table
         style={{ minWidth: '600px' }}
-        dataSource={userList}
+        dataSource={dataSource}
         columns={this.columns}
         bordered
       />

@@ -21,6 +21,7 @@ class MyApp extends App {
 
   render () {
     const { Component, pageProps, store, router } = this.props;
+
     return (
       <Container>
         <Provider store={store}>

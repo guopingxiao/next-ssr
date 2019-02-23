@@ -1,4 +1,4 @@
-import UserDetail from '../../components/User/UserDetail';
+import UserDetail from '../../containers/user/UserDetail';
 
 export default UserDetail;
 
