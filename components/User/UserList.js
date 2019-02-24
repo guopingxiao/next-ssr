@@ -1,14 +1,20 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import Link from 'next/link';
 import { RoleType } from '../../constants/ConstTypes';
 
 class UserList extends Component {
+  static propTypes = {
+    isServer: PropTypes.bool.isRequired,
+    fetchUserListData: PropTypes.func.isRequired,
+    list: PropTypes.array.isRequired
+  }
   constructor(props) {
-
     super(props);
+    const { list } = props;
     this.state = {
-      dataSource: []
+      dataSource: list
     };
 
     this.columns = [{
@@ -16,7 +22,7 @@ class UserList extends Component {
       dataIndex: 'username',
       key: 'username',
       render: (text) => (
-        <Link href={`/user/userDetail/${text}`}>
+        <Link href={`/user/userDetail?username=${text}`} as={`/user/userDetail/${text}`}>
           <a>{text}</a>
         </Link>
       )
@@ -39,12 +45,6 @@ class UserList extends Component {
       };
     }
     return null; 
-  }
-
-  componentDidMount() {
-    if(this.props.isServer) {
-      this.props.fetchUserListData();
-    }
   }
 
   render() {

@@ -1,8 +1,19 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
+import getConfig from 'next/config';
 import { color_primary } from '../constants/CustomTheme';
 
+// Only holds serverRuntimeConfig and publicRuntimeConfig from next.config.js nothing else.
+const { publicRuntimeConfig: { staticFolder } } = getConfig();
+
 class Header extends Component {
+  static propTypes = {
+    title: PropTypes.string
+  }
+  static defaultProps = {
+    title: ''
+  }
   constructor(props) {
     super(props);
     const { title } = props;
@@ -10,7 +21,7 @@ class Header extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.title!== prevState.title) {
+    if (nextProps.title !== prevState.title) {
       return {
         title: nextProps.title
       };
@@ -22,18 +33,14 @@ class Header extends Component {
     const { title } = this.state;
     return (
       <div className='header-container'>
-        <Link href='/'>
-          <div className='logo-container'>
-            <img className='logo' alt='logo' src='/static/logo.png' />
-            <span className='sys-name'>大众点评</span>
-          </div>
-        </Link>
-        <h2>{title}</h2>
         <style jsx>{`
           .header-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
             height: 60px;
             background-color: ${color_primary};
-            margin-bottom: 10px;
+            z-index: 999;
           }
           h2 {
             text-align: center;
@@ -59,10 +66,17 @@ class Header extends Component {
             font-weight: 600;
           }
           .logo {
-            width: 160px;
+            width: 140px;
             height: 38px;
           }
         `}</style>
+        <Link href='/'>
+          <div className='logo-container'>
+            <img className='logo' alt='logo' src={`${staticFolder}/logo.png`} />
+            <span className='sys-name'>Next-SSR-Demo</span>
+          </div>
+        </Link>
+        <h2>{title}</h2>
       </div>
     );
   }

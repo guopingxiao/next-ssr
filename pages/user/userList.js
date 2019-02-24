@@ -1,11 +1,13 @@
+import fetch from 'isomorphic-unfetch';
 import UserList from '../../containers/user/UserList';
-import { fetchUserListData } from '../../redux/actions/user';
+import { fetchUserListDataSuccess } from '../../redux/actions/user';
+import api from '../../constants/ApiUrlForBE';
 
 UserList.getInitialProps = async (props) => {
   const { store, isServer } = props.ctx;
-  if (store.getState().user.list.list.length === 0) {
-    store.dispatch(fetchUserListData());
-  }
+  const res = await fetch(api.getUserList);
+  const data = await res.json();
+  store.dispatch(fetchUserListDataSuccess(data));
   return { isServer };
 };
 

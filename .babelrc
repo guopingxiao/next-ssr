@@ -1,13 +1,21 @@
+
 {
   "presets": ["next/babel"],
   "plugins": [
-    "transform-decorators-legacy",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "decoratorsBeforeExport": true
+      }
+    ],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
     [
       "import",
       {
         "libraryName": "antd",
         "style": true
       }
-    ]
+    ],
+    ["lodash"]
   ]
 }

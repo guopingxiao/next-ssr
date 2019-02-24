@@ -1,29 +1,18 @@
 import { Fragment } from 'react';
-import Head from 'next/head';
+import PropTypes from 'prop-types';
 import Header from './Header';
-import '../asserts/styles.less';
 
-export default ({title, children }) => (
+const Layout = ({ title, children }) => (
   <Fragment>
-    <Head>
-      <meta name='viewport' content='width=device-width, initial-scale=1' />
-      <meta charSet='utf-8' />
-      <title>Next-Antd-Demo</title>
-      <link rel='shortcut icon' href='/static/favicon.ico' type='image/ico'/>
-      <link rel='stylesheet' href='/_next/static/style.css' />
-    </Head>
-    <style jsx global>{`
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
-      }
+    <style jsx>{`
       .content-container {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 70px 20px 20px 20px;
+        padding: 10px 20px;
+        background-color: #fff;
       }
     `}</style>
     <Header title={title} />
@@ -32,5 +21,13 @@ export default ({title, children }) => (
     </div>
   </Fragment>
 );
+export default Layout;
 
+Layout.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.any
+};
 
+Layout.defaultProps = {
+  children: null
+};

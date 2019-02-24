@@ -3,18 +3,20 @@ import {
   FETCH_USER_LIST,
 } from '../../../constants/ActionTypes';
 import { fetchUserListDataFali, fetchUserListDataSuccess } from '../../actions/user';
-
+import api from '../../../constants/ApiUrlForBE';
+import nextFetch from '../../../core/nextFetch';
 /**
  * 简洁的实际写法, 把worker saga和watcher saga结合在一起。写起来方便
  */
 export function* userList() {
-  while(true) {
+  while (true) {
     yield take(FETCH_USER_LIST);
     try {
-      const res = yield fetch('https://jsonplaceholder.typicode.com/users');
-      const data = yield res.json();
+      const data = yield nextFetch.get(api.getUserList);
+      // const res = yield fetch(api.getUserList);
+      // const { data } = yield res.json();
       yield put(fetchUserListDataSuccess(data));
-    } catch(error) {
+    } catch (error) {
       yield put(fetchUserListDataFali(error));
     }
   }
