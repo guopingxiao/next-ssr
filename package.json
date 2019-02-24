@@ -5,11 +5,6 @@
   "main": "server.js",
   "author": "xiaoguoping",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx}": [
       "eslint --no-ignore --fix",
